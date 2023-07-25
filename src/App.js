@@ -1,25 +1,27 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
-//This is a custom component 
-const Person =({name,age,gender})=>{
-return(
-  <>
-  <h1>Name: {name}</h1>
-  <h2>Age:{age}</h2>
-  <h2>Gender:{gender}</h2>
-  </>
-)
-}
+
 
 const App = () => {
   
+  const [counter,setCounter]=useState(0);
+  
+  //With the help of useEffect hook we can call some code whenever we want
+  //like in below we are calling alert whenever counter is changing
+  useEffect(()=>{
+    // counter=110; Never do this as we can't directly change the counter
+    alert("you have changed the counter to " + counter)
+  },[counter])
+
   return (
     <div>
-       <Person name={'Dev'} age={18} gender={'Male'}  />
-       <Person name={'Harry'} age={13} gender={'Male'}/>
-       <Person name={'Devansh'} age={14} gender={'Male'}/>
-       <Person name={'Devesh'} age={16} gender={'Male'}/>
-       <Person name={'Don'} age={12} gender={'Male'}/>
+      {/* By wrapping the setCounter call inside an arrow function, you ensure that
+       the setCounter function is called only when the button is clicked, not during
+        the initial rendering. This way, the state will be updated correctly when 
+        the user clicks the button. */}
+     <button onClick={()=>setCounter((prevCount)=>prevCount-1)}>-</button>
+     <h1>{counter}</h1>
+     <button onClick={()=>setCounter((prevCount)=>prevCount+1)}>+</button>
     </div>
   )
 }
